@@ -20,36 +20,37 @@ nrow(trabalhodeR)
 length(trabalhodeR)
 
 
-##Graficos com linha de tendencia 
-#(Dados: x = ExactMolWt, y = MolLogP, NumHAcceptors, NumHDonors, NumRotatableBonds, RingCount, TPSA)
+###Graficos com linha de tendencia 
+##(Dados: x = ExactMolWt, y = MolLogP, NumHAcceptors, NumHDonors, NumRotatableBonds, RingCount, TPSA)
 
 #(Dados: x = ExactMolWt, y = MolLogP (calculo da molecula))
-ggplot(data = trabalhodeR) + geom_point(mapping = aes(x = ExactMolWt, y = MolLogP)) + geom_smooth(mapping = aes(x = ExactMolWt, y = MolLogP))
+ExactMolWt_MolLogP <- ggplot(data = trabalhodeR) + geom_point(mapping = aes(x = ExactMolWt, y = MolLogP)) + geom_smooth(mapping = aes(x = ExactMolWt, y = MolLogP))
 #Concentracao de moleculas menores em encontro com o ExactMolWt e uma linha situada entre -5 e 10 MolLogP
 
 #(Dados: x = ExactMolWt, y = NumHAcceptors)
-ggplot(data = trabalhodeR) + geom_point(mapping = aes(x = ExactMolWt, y = NumHAcceptors)) + geom_smooth(mapping = aes(x = ExactMolWt, y = NumHAcceptors))
+ExactMolWt_NumHAcceptors <- ggplot(data = trabalhodeR) + geom_point(mapping = aes(x = ExactMolWt, y = NumHAcceptors)) + geom_smooth(mapping = aes(x = ExactMolWt, y = NumHAcceptors))
 
 #(Dados: x = ExactMolWt, y = NumHDonors)
-ggplot(data = trabalhodeR) + geom_point(mapping = aes(x = ExactMolWt, y = NumHDonors)) + geom_smooth(mapping = aes(x = ExactMolWt, y = NumHDonors))
+ExactMolWt_NumHDonors <- ggplot(data = trabalhodeR) + geom_point(mapping = aes(x = ExactMolWt, y = NumHDonors)) + geom_smooth(mapping = aes(x = ExactMolWt, y = NumHDonors))
 
 #(Dados: x = ExactMolWt, y = NumRotatableBonds)
-ggplot(data = trabalhodeR) + geom_point(mapping = aes(x = ExactMolWt, y = NumRotatableBonds)) + geom_smooth(mapping = aes(x = ExactMolWt, y = NumRotatableBonds))
+ExactMolWt_NumRotatableBonds <- ggplot(data = trabalhodeR) + geom_point(mapping = aes(x = ExactMolWt, y = NumRotatableBonds)) + geom_smooth(mapping = aes(x = ExactMolWt, y = NumRotatableBonds))
 
 #(Dados: x = ExactMolWt, y = RingCount)
-ggplot(data = trabalhodeR) + geom_point(mapping = aes(x = ExactMolWt, y = RingCount)) + geom_smooth(mapping = aes(x = ExactMolWt, y = RingCount))
+ExactMolWt_RingCount <- ggplot(data = trabalhodeR) + geom_point(mapping = aes(x = ExactMolWt, y = RingCount)) + geom_smooth(mapping = aes(x = ExactMolWt, y = RingCount))
 
-#(Dados: x = ExactMolWt, y = TPSA (espa?o da molecula))
-ggplot(data = trabalhodeR) + geom_point(mapping = aes(x = ExactMolWt, y = TPSA)) + geom_smooth(mapping = aes(x = ExactMolWt, y = TPSA))
+#(Dados: x = ExactMolWt, y = TPSA (espaco da molecula))
+ExactMolWt_TPSA <-  ggplot(data = trabalhodeR) + geom_point(mapping = aes(x = ExactMolWt, y = TPSA)) + geom_smooth(mapping = aes(x = ExactMolWt, y = TPSA))
 
 
-
-##RingCount, NumRotatableBonds
+##RingCount, NumRotatableBonds (para cruzar os dados de ligaçoes com aneis e sem aneis)
 ggplot(data = trabalhodeR) + geom_point(mapping = aes(x = NumRotatableBonds, y = RingCount)) + geom_smooth(mapping = aes(x = RingCount, y = NumRotatableBonds))
 
-##NumHDonors, NumHAcceptors
+##NumHDonors, NumHAcceptors (para cruzar os dados de Ligaçoes com hidrogenio e sem ligaçao de hidrogenio)
 ggplot(data = trabalhodeR) + geom_point(mapping = aes(x = NumHAcceptors, y = NumHDonors)) + geom_smooth(mapping = aes(x = NumHAcceptors, y = NumHDonors))
 
+##ExactMolWt, TPSA (para cruzar os dados de peso molecular e o espaço da molecula)
+ggplot(data = trabalhodeR) + geom_point(mapping = aes(x = ExactMolWt, y = TPSA)) + geom_smooth(mapping = aes(x = ExactMolWt, y = TPSA))
 
 
 ##Fazendo o Boxplot
@@ -72,26 +73,6 @@ ggplot(data = trabalhodeR, aes(y = RingCount, x = ExactMolWt)) + geom_boxplot()
 ggplot(data = trabalhodeR, aes(y = TPSA, x = ExactMolWt)) + geom_boxplot()
 
 
-boxplot(trabalhodeR$ExactMolWt) +
-  legend(x = "topleft", legend = "ExactMolWt", bty = "n")
-
-
-
-##Quantidade que dados se repetem
-table(trabalhodeR$ExactMolWt)
-
-table(trabalhodeR$MolLogP)
-
-table(trabalhodeR$NumHAcceptors)
-
-table(trabalhodeR$NumHDonors)
-
-table(trabalhodeR$NumRotatableBonds)
-
-table(trabalhodeR$RingCount)
-
-table(trabalhodeR$TPSA)
-
 ##Histograma
 hist(trabalhodeR$ExactMolWt)
 
@@ -108,6 +89,49 @@ hist(trabalhodeR$RingCount)
 hist(trabalhodeR$TPSA)
 
 
+#Valor maximo
+max(trabalhodeR$ExactMolWt)
 
-cor.test(trabalhodeR$ExactMolWt, trabalhodeR$RingCount)
-plot(trabalhodeR$ExactMolWt, trabalhodeR$RingCount)
+max(trabalhodeR$MolLogP)
+
+max(trabalhodeR$NumHAcceptors)
+
+max(trabalhodeR$NumHDonors)
+
+max(trabalhodeR$NumRotatableBonds)
+
+max(trabalhodeR$RingCount)
+
+max(trabalhodeR$TPSA)
+
+#Valor minino
+min(trabalhodeR$ExactMolWt)
+
+min(trabalhodeR$MolLogP)
+
+min(trabalhodeR$NumHAcceptors)
+
+min(trabalhodeR$NumHDonors)
+
+min(trabalhodeR$NumRotatableBonds)
+
+min(trabalhodeR$RingCount)
+
+min(trabalhodeR$TPSA)
+
+#Media
+mean(trabalhodeR$ExactMolWt)
+
+mean(trabalhodeR$MolLogP)
+
+mean(trabalhodeR$NumHAcceptors)
+
+mean(trabalhodeR$NumHDonors)
+
+mean(trabalhodeR$NumRotatableBonds)
+
+mean(trabalhodeR$RingCount)
+
+mean(trabalhodeR$TPSA)
+
+
